@@ -19,16 +19,13 @@ public class Calculator {
         return c / x;
     }
 
-    public int sumAllOperation(int z) { // Не понимаю как реализовать данный метод//
-        return z;
+    public int sumAllOperation(int z) {
+        return sum(z) + multiply(z) + minus(z) + divide(z);
     }
 
     public static void main(String[] args) {
-        int rsl = sum(1) + minus(1);
         Calculator calculator = new Calculator();
-        int rsl2 = calculator.multiply(1) + calculator.divide(1);
-        int rsl3 = rsl + rsl2;
-        System.out.println(rsl3);
+        System.out.println(calculator.sumAllOperation(1));
     }
 }
 
