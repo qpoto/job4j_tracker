@@ -8,6 +8,9 @@ public class College extends Student {
         student.setFullName("Stanislav Kondratev");
         student.setGroupNumber("Best group number 1");
         student.setDateOfRreceipt(new Date());
-        System.out.println("On the current date, namely " + student.getDateOfRreceipt() + ", " + student.getFullName() + " is working hard in the " + student.getGroupNumber() + ", while being very awesome.");
+        System.out.println("On the current date, namely "
+                + student.getDateOfRreceipt() + ", "
+                + student.getFullName() + " is working hard in the "
+                + student.getGroupNumber() + ", while being very awesome.");
     }
 }
