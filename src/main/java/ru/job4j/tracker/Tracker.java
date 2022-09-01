@@ -27,8 +27,7 @@ public class Tracker {
                 count++;
             }
         }
-        result = Arrays.copyOf(result, count);
-        return result;
+        return Arrays.copyOf(result, count);
     }
 
     public Item findById(int id) {
@@ -42,4 +41,7 @@ public class Tracker {
         }
         return rsl;
     }
+
+//    public boolean replace(int id, Item item) {
+//    }
 }
