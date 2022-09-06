@@ -1,7 +1,5 @@
 package ru.job4j.io;
 
-import ru.job4j.pojo.Book;
-
 import java.util.Scanner;
 
 public class Matches {
