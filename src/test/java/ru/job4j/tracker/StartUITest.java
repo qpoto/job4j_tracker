@@ -11,6 +11,7 @@ public class StartUITest {
         Input in = new StubInput(new String[] {"0", "Item name", "1"});
         Tracker tracker = new Tracker();
         UserAction[] actions = {
+                new CreateAction(out),
                 new Exit()
         };
         new StartUI(out).init(in, tracker, actions);

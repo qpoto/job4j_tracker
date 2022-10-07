@@ -19,14 +19,14 @@ public class EditActionTest {
         Input input = new StubInput(new String[] {"0", String.valueOf(one.getId()), replaceName, "1"});
         new StartUI(out).init(input, tracker, actions);
         assertThat(out.toString(), is(
-                "Menu:" + ln
+                "Menu." + ln
                         + "0. Edit item" + ln
-                        + "1. Exit Program" + ln
+                        + "1. Exit" + ln
                         + "=== Edit item ===" + ln
-                        + "Заявка изменена успешно." + ln
-                        + "Menu:" + ln
+                        + "Р—Р°СЏРІРєР° РёР·РјРµРЅРµРЅР° СѓСЃРїРµС€РЅРѕ." + ln
+                        + "Menu." + ln
                         + "0. Edit item" + ln
-                        + "1. Exit Program" + ln));
+                        + "1. Exit" + ln));
     }
 
 }
