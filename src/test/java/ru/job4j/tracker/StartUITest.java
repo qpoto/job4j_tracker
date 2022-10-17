@@ -102,9 +102,8 @@ public class StartUITest {
         Output out = new StubOutput();
         Tracker tracker = new Tracker();
         Item one = tracker.add(new Item("test1"));
-        String replaceName = "New Test Name";
         Input in = new StubInput(
-                new String[] {"0", String.valueOf(one.getId()), replaceName, "1"}
+                new String[] {"0", String.valueOf(one.getId()), "1"}
         );
         UserAction[] actions = new UserAction[]{
                 new ShowAllAction(out),
@@ -117,7 +116,7 @@ public class StartUITest {
                         + "0. Show All Item" + ln
                         + "1. Exit Program" + ln
                         + "=== Show all items ===" + ln
-                        + one.toString() + ln
+                        + one + ln
                         + "Menu:" + ln
                         + "0. Show All Item" + ln
                         + "1. Exit Program" + ln
@@ -143,7 +142,7 @@ public class StartUITest {
                         + "0. Find item by name" + ln
                         + "1. Exit Program" + ln
                         + "=== Find items by name ===" + ln
-                        + one.toString() + ln
+                        + one + ln
                         + "Menu:" + ln
                         + "0. Find item by name" + ln
                         + "1. Exit Program" + ln
@@ -169,7 +168,7 @@ public class StartUITest {
                         + "0. Find by id Item" + ln
                         + "1. Exit Program" + ln
                         + "=== Find item by id ===" + ln
-                        + one.toString() + ln
+                        + one + ln
                         + "Menu:" + ln
                         + "0. Find by id Item" + ln
                         + "1. Exit Program" + ln
