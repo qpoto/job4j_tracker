@@ -9,7 +9,7 @@ class PasswordValidatorTest {
     @Test
     void whenPasswordIsValid() {
         String password = "Ln2$mrTY12";
-        String expected = "Valid";
+        String expected = "Ln2$mrTY12";
         String result = PasswordValidator.validate(password);
         assertThat(result).isEqualTo(expected);
     }
