@@ -22,8 +22,8 @@ public final class Airbus {
     }
 
     public void printCountEngine() {
-        String enginQ = name.equals("A380") ? "4 двигателя" : "Количество двигателей: " + COUNT_ENGINE;
-        System.out.println(enginQ);
+        int engine = "A380".equals(name) ? 4 : COUNT_ENGINE;
+        System.out.println("Количество двигателей: " + engine);
     }
 
     @Override
