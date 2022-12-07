@@ -1,6 +1,10 @@
 package ru.job4j.collection;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PassportOfficeTest {
@@ -9,6 +13,16 @@ public class PassportOfficeTest {
         Citizen citizen = new Citizen("2f44a", "Petr Arsentev");
         PassportOffice office = new PassportOffice();
         office.add(citizen);
+        assertThat(office.get(citizen.getPassport())).isEqualTo(citizen);
+    }
+
+    @Test
+    public void whenMapNotContain() {
+        Citizen citizen = new Citizen("2f44a", "Petr Arsentev");
+        Citizen citizen1 = new Citizen("2f44a", "Stas Kondratev");
+        PassportOffice office = new PassportOffice();
+        office.add(citizen);
+        office.add(citizen1);
         assertThat(office.get(citizen.getPassport())).isEqualTo(citizen);
     }
 }
