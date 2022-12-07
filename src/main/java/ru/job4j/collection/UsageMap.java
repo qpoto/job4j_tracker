@@ -9,7 +9,8 @@ public class UsageMap {
         dictonary.put("o.markova@yandex.ru", "Olga Markova");
         dictonary.put("a.ageev@yandex.ru", "Anton Ageev");
         for (String key : dictonary.keySet()) {
-            System.out.println(key);
+            String value = dictonary.get(key);
+            System.out.println(key + " = " + value);
         }
     }
 }
