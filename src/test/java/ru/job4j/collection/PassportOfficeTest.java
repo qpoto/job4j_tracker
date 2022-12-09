@@ -2,9 +2,6 @@ package ru.job4j.collection;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PassportOfficeTest {
@@ -23,6 +20,6 @@ public class PassportOfficeTest {
         PassportOffice office = new PassportOffice();
         office.add(citizen);
         office.add(citizen1);
-        assertThat(office.get(citizen.getPassport())).isEqualTo(citizen);
+        assertThat(office.add(citizen1)).isFalse();
     }
 }
