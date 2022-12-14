@@ -17,11 +17,15 @@ public class AnalyzeByMap {
     public static List<Label> averageScoreByPupil(List<Pupil> pupils) {
         List<Label> pupilAvarageScore = new ArrayList<>();
         for (Pupil pupil : pupils) {
+            int subjectQuantity = 0;
+            int scoreQuantity = 0;
             for (Subject subject : pupil.subjects()) {
-                int score = subject.score();
-                Label pupilLabel = new Label(pupil.name(), score);
-                pupilAvarageScore.add(pupilLabel);
+                scoreQuantity += subject.score();
+                subjectQuantity++;
             }
+            int avarageScore = scoreQuantity / subjectQuantity;
+            Label pupilLabel = new Label(pupil.name(), avarageScore);
+            pupilAvarageScore.add(pupilLabel);
         }
         return pupilAvarageScore;
     }
