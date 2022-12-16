@@ -34,7 +34,10 @@ public class AnalyzeByMap {
         for (Pupil pupil : pupils) {
             pupilQuantity++;
             for (Subject subject : pupil.subjects()) {
-                time.put(subject.name(), subject.score());
+                String name = subject.name();
+                int score = time.containsKey(name) ? time.get(name) : 0;
+                score += subject.score();
+                time.put(name, score);
             }
         }
         List<Label> averageScoreBySubject = new ArrayList<>();
