@@ -45,15 +45,38 @@ public class AnalyzeByMap {
             int value = time.get(key);
             averageScoreBySubject.add(new Label(key, value / pupilQuantity));
         }
-
         return averageScoreBySubject;
     }
 
     public static Label bestStudent(List<Pupil> pupils) {
-        return null;
+        List<Label> bestPupil = new ArrayList<>();
+        for (Pupil pupil : pupils) {
+            int scoreQuantity = 0;
+            for (Subject subject : pupil.subjects()) {
+                scoreQuantity += subject.score();
+            }
+            bestPupil.add(new Label(pupil.name(), scoreQuantity));
+        }
+        bestPupil.sort(Comparator.naturalOrder());
+        return bestPupil.get(bestPupil.size() - 1);
     }
 
     public static Label bestSubject(List<Pupil> pupils) {
-        return null;
+        Map<String, Integer> time = new LinkedHashMap<>();
+        for (Pupil pupil : pupils) {
+            for (Subject subject : pupil.subjects()) {
+                String name = subject.name();
+                int score = time.containsKey(name) ? time.get(name) : 0;
+                score += subject.score();
+                time.put(name, score);
+            }
+        }
+        List<Label> bestSubjectScore = new ArrayList<>();
+        for (String key : time.keySet()) {
+            int value = time.get(key);
+            bestSubjectScore.add(new Label(key, value));
+        }
+        bestSubjectScore.sort(Comparator.naturalOrder());
+        return bestSubjectScore.get(bestSubjectScore.size() - 1);
     }
 }
