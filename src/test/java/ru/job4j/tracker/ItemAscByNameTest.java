@@ -23,6 +23,6 @@ public class ItemAscByNameTest {
         items.add(new Item(1, "First"));
         items.add(new Item(2, "Second"));
         items.add(new Item(3, "Third"));
-
+        assertThat(items).isEquaTo(expected);
     }
 }
