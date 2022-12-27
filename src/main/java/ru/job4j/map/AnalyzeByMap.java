@@ -62,10 +62,7 @@ public class AnalyzeByMap {
         Map<String, Integer> time = new LinkedHashMap<>();
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
-                String name = subject.name();
-                int score = time.containsKey(name) ? time.get(name) : 0;
-                score += subject.score();
-                time.put(name, score);
+                time.put(subject.name(), time.getOrDefault(subject.name(), 0) + subject.score());
             }
         }
         List<Label> bestSubjectScore = new ArrayList<>();
