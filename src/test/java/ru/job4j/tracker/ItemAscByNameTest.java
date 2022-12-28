@@ -1,12 +1,8 @@
 package ru.job4j.tracker;
 
-import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import java.util.*;
 
 public class ItemAscByNameTest {
 
@@ -16,13 +12,12 @@ public class ItemAscByNameTest {
         items.add(new Item(2, "Second"));
         items.add(new Item(3, "Third"));
         items.add(new Item(1, "First"));
-        items.sort(new ItemAscByName());
-        System.out.println(items);
+        Collections.sort(items, new ItemAscByName());
 
         List<Item> expected = new ArrayList<>();
-        items.add(new Item(1, "First"));
-        items.add(new Item(2, "Second"));
-        items.add(new Item(3, "Third"));
-        assertThat(items).isEquaTo(expected);
+        expected.add(new Item(1, "First"));
+        expected.add(new Item(2, "Second"));
+        expected.add(new Item(3, "Third"));
+        assertThat(items).isEqualTo(expected);
     }
 }
