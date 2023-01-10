@@ -1,11 +1,11 @@
 package ru.job4j.checkstyle;
 
 public class Broken {
+    public static final String NEW_VALUE = "";
+
     private int sizeOfEmpty = 10;
     public String surname;
     String name;
-
-    public static final String NEW_VALUE = "";
 
     public Broken() {
     }
