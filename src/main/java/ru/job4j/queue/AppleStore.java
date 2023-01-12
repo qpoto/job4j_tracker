@@ -23,7 +23,7 @@ public class AppleStore {
     }
 
     public String getLastUpsetCustomer() {
-        for (int i = 1; i <= count; i++) {
+        for (int i = 1; i <= count + 1; i++) {
             String name = queue.poll().name();
             if (i > count) {
                 return name;
