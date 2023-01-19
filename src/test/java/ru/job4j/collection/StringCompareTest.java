@@ -21,7 +21,7 @@ public class StringCompareTest {
                 "Ivanov",
                 "Ivanova"
         );
-        assertThat(rst).isGreaterThan(0);
+        assertThat(rst).isLessThan(0);
     }
 
     @Test
