@@ -9,10 +9,7 @@ import java.util.function.*;
 public class FunctionalInterfaces {
     public static void main(String[] args) {
         Map<Integer, String> map = new HashMap<>();
-        BiConsumer<Integer, String> biCon = ...;
-        /*
-            Замените вставку элементов в карту на использование BiConsumer, он уже объявлен, требуется его реализовать.
-         */
+        BiConsumer<Integer, String> biCon = (i, s) -> map.put(i, s);
         map.put(1, "one");
         map.put(2, "two");
         map.put(3, "three");
@@ -21,30 +18,22 @@ public class FunctionalInterfaces {
         map.put(6, "six");
         map.put(7, "seven");
 
-        BiPredicate<Integer, String> biPred = ...;
+        BiPredicate<Integer, String> biPred = (i, s) -> i % 2 == 0 || s.length() == 4;
         for (Integer i : map.keySet()) {
-            /*
-                Замените проверку в if() на использование BiPredicate, он объявлен выше, требуется его реализовать.
-             */
-            if (i % 2 == 0 || map.get(i).length() == 4) {
+            if (biPred.test(i, map.get(i))) {
                 System.out.println("key: " + i + " value: " + map.get(i));
             }
         }
         /*
             Заменить создание ArrayList из значений Map на Supplier, объявлен ниже, требуется его реализовать.
          */
-        Supplier<List<String>> sup = ...;
-        List<String> strings = new ArrayList<>(map.values());
+        Supplier<List<String>> sup = () -> new ArrayList<>(map.values());
+        List<String> strings = sup.get();
 
-        Consumer<String> con = ...;
-        Function<String, String> func = ...;
+        Consumer<String> con = s -> System.out.println(s);
+        Function<String, String> func = s -> s.toUpperCase();
         for (String s : strings) {
-            /*
-                Заменить вывод строк на применение Consumer
-                Заменить преобразование строк к строкам в верхнем регистре с помощью Function
-                Необходимое объявлено выше, требуется их реализовать.
-            */
-            System.out.println(s.toUpperCase());
+            con.accept(func.apply(s));
         }
     }
 }
