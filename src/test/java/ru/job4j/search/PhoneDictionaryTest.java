@@ -23,4 +23,14 @@ public class PhoneDictionaryTest {
         ArrayList<Person> persons = phones.find("Efim");
         assertThat(persons.size()).isEqualTo(0);
     }
+
+    @Test
+    public void whenFindByNameLambda() {
+        PhoneDictionary phones = new PhoneDictionary();
+        phones.add(
+                new Person("Petr", "Arsentev", "534872", "Bryansk")
+        );
+        ArrayList<Person> persons = phones.find("Petr");
+        assertThat(persons.get(0).getSurname()).isEqualTo("Arsentev");
+    }
 }
