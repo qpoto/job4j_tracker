@@ -15,10 +15,10 @@ public class BankService {
     private final Map<User, List<Account>> users = new HashMap<>();
 
     /**
-     * метод должен добавить пользователя в систему
+     * Метод должен добавить пользователя в систему
      * По умолчанию к этому user нужно добавить пустой список - new ArrayList<Account>().
      * В методе должна быть проверка, что такого пользователя еще нет в системе. Если он есть, то нового добавлять не надо
-     * @param user метод принимает один параметр: пользователя, т.е. объект класса User.
+     * @param user Метод принимает один параметр: пользователя, т.е. объект класса User.
      */
 
     public void addUser(User user) {
@@ -26,14 +26,14 @@ public class BankService {
     }
 
     /**
-     * метод, который позволит удалить пользователя из системы
+     * Метод, который позволит удалить пользователя из системы
      * Самым важным параметром для пользователя является его паспорт,
      * этот параметр его уникально идентифицирует.
      * Именно на значении мы будем базировать удаление.
      * К тому же, согласно переопределенному equals и hashcode у User, их сравнение происходит по полю passport.
      * Используйте эту важную особенность.
      * Для удаления Вам понадобится метод remove по ключу.
-     * Для того, чтобы вернуть boolean используйте возвращаемое значение указанного метода.
+     * Для того чтобы вернуть boolean, используйте возвращаемое значение указанного метода.
      * @param passport Номер паспарто пользователя
      * @return возвращеает true если пользователь удален
      */
@@ -42,7 +42,7 @@ public class BankService {
     }
 
     /**
-     * метод должен добавить новый счет к пользователю
+     * Метод должен добавить новый счет к пользователю
      * Первоначально пользователя нужно найти по паспорту. Для этого нужно использовать метод findByPassport
      * После этого мы получим список всех счетов пользователя и добавим новый счет к ним.
      * В этом методе должна быть проверка, что такого счета у пользователя еще нет.
@@ -65,16 +65,14 @@ public class BankService {
      * @return Возвращает найденного пользовтеля
      */
     public User findByPassport(String passport) {
-        for (User user : users.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                return user;
-            }
-        }
-        return null;
+        return users.keySet()
+                .stream()
+                .filter(u -> u.getPassport().equals(passport))
+                .findFirst()
+                .orElse(null);
     }
-
     /**
-     * метод ищет счет пользователя по реквизитам:
+     * Метод ищет счет пользователя по реквизитам:
      * Сначала нужно найти пользователя по паспорту с помощью метода findByPassport.
      * Потом получить список счетов этого пользователя и в нем найти нужный счет.
      * Поскольку метод findByPassport может вернуть null, то прежде чем получать список аккаунтов,
@@ -83,22 +81,21 @@ public class BankService {
      * @param requisite Реквизиты счета
      * @return Возвращает Счет
      */
+
     public Account findByRequisite(String passport, String requisite) {
         User user = findByPassport(passport);
         if (user != null) {
-            List<Account> accountList = users.get(user);
-            for (Account account : accountList) {
-                if (account.getRequisite().equals(requisite)) {
-                    return account;
-                }
-            }
-
+            return users.get(user)
+                    .stream()
+                    .filter(u -> u.getRequisite().equals(requisite))
+                    .findFirst()
+                    .orElse(null);
         }
         return null;
     }
 
     /**
-     * метод предназначен для перечисления денег с одного счёта на другой счёт.
+     * Метод предназначен для перечисления денег с одного счёта на другой счёт.
      * Если счёт не найден или не хватает денег на счёте srcAccount (с которого переводят),
      * то метод должен вернуть false.
      * @param srcPassport паспорт пользователя
