@@ -22,7 +22,7 @@ public class College {
     public Optional<Subject> findBySubjectName(String account, String name) {
         Optional<Student> a = findByAccount(account);
         if (a.isPresent()) {
-            return students.get(a)
+            return students.get(a.get())
                     .stream()
                     .filter(s -> s.name().equals(name))
                     .findFirst();
