@@ -6,8 +6,8 @@ import java.util.stream.Stream;
 
 public class Analyze  {
     public static double averageScore(Stream<Pupil> stream) {
-        return stream.flatMap(e -> e.subjects()
-                        .stream())
+        return stream
+                .flatMap(e -> e.subjects().stream())
                 .mapToInt(Subject::score)
                 .average()
                 .orElse(0.0);
