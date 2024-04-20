@@ -1,9 +1,8 @@
 package ru.job4j.tracker;
 
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -45,42 +44,109 @@ public class SqlTracker implements Store {
 
     @Override
     public Item add(Item item) {
-        int id = item.getId();
-        String name = item.getName();
-        //Далее что работа с Insert
-        return null;
+        try (PreparedStatement pS =
+                     connection.prepareStatement("INSERT INTO items(name, created) VALUES (?, ?)",
+                             Statement.RETURN_GENERATED_KEYS)) {
+            pS.setString(1, item.getName());
+            pS.setTimestamp(2, Timestamp.valueOf(item.getCreated()));
+            pS.execute();
+            try (ResultSet generatedKeys = pS.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    item.setId(generatedKeys.getInt(1));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return item;
     }
 
     @Override
     public boolean replace(int id, Item item) {
-        String name = item.getName();
-        //Далее найти заявки по id и перезаписать данми
-        return true;
+        boolean isReplace = false;
+        try (PreparedStatement pS =
+                     connection.prepareStatement("UPDATE items SET name = (?), created = (?) where id = (?)")) {
+            pS.setString(1, item.getName());
+            pS.setTimestamp(2, Timestamp.valueOf(item.getCreated()));
+            pS.setInt(3, id);
+            isReplace = pS.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isReplace;
     }
 
     @Override
     public void delete(int id) {
-        //Тут работа с Delete from items where id = id
+        try (PreparedStatement pS =
+                     connection.prepareStatement("DELETE from items where id = (?)")) {
+            pS.setInt(1, id);
+            pS.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public List<Item> findAll() {
         List<Item> items = new ArrayList<>();
-        //Тут c select * from items, с созданием Item и добавлением в allItems
+        try (PreparedStatement pS =
+                     connection.prepareStatement("Select * from items")) {
+            pS.execute();
+            ResultSet rS = pS.getResultSet();
+            while (rS.next()) {
+                Item itemFromDB = new Item();
+                itemFromDB.setId(rS.getInt("id"));
+                itemFromDB.setName(rS.getString("name"));
+                Timestamp timestamp = (rS.getTimestamp("created"));
+                itemFromDB.setCreated(timestamp.toLocalDateTime());
+                items.add(itemFromDB);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return items;
     }
 
     @Override
     public List<Item> findByName(String key) {
         List<Item> items = new ArrayList<>();
-        //Тут c select * from items where name = key, с созданием Item и добавлением в allItems
+        try (PreparedStatement pS =
+                     connection.prepareStatement("Select * from items where name = (?)")) {
+            pS.setString(1, key);
+            pS.execute();
+            ResultSet rS = pS.getResultSet();
+            while (rS.next()) {
+                Item itemFromDB = new Item();
+                itemFromDB.setId(rS.getInt("id"));
+                itemFromDB.setName(rS.getString("name"));
+                Timestamp timestamp = (rS.getTimestamp("created"));
+                itemFromDB.setCreated(timestamp.toLocalDateTime());
+                items.add(itemFromDB);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return items;
     }
 
     @Override
     public Item findById(int id) {
-        Item item = new Item();
-        //Select * from users where id = id;
-        return item;
+        Item itemFromDB = new Item();
+        try (PreparedStatement pS =
+                     connection.prepareStatement("Select * from items where id = (?)")) {
+            pS.setInt(1, id);
+            pS.execute();
+            ResultSet rS = pS.getResultSet();
+            if (rS.next()) {
+                itemFromDB.setId(rS.getInt("id"));
+                itemFromDB.setName(rS.getString("name"));
+                Timestamp timestamp = (rS.getTimestamp("created"));
+                itemFromDB.setCreated(timestamp.toLocalDateTime());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return itemFromDB;
     }
 }

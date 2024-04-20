@@ -42,6 +42,11 @@ public class Item {
         this.name = name;
     }
 
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
+
     @Override
     public String toString() {
         return "Item{"
@@ -67,4 +72,6 @@ public class Item {
     public int hashCode() {
         return Objects.hash(id, name);
     }
+
+
 }
