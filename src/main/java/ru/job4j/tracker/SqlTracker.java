@@ -94,17 +94,22 @@ public class SqlTracker implements Store {
             pS.execute();
             ResultSet rS = pS.getResultSet();
             while (rS.next()) {
-                Item itemFromDB = new Item();
-                itemFromDB.setId(rS.getInt("id"));
-                itemFromDB.setName(rS.getString("name"));
-                Timestamp timestamp = (rS.getTimestamp("created"));
-                itemFromDB.setCreated(timestamp.toLocalDateTime());
+                Item itemFromDB = getItem(rS);
                 items.add(itemFromDB);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return items;
+    }
+
+    private static Item getItem(ResultSet rS) throws SQLException {
+        Item itemFromDB = new Item();
+        itemFromDB.setId(rS.getInt("id"));
+        itemFromDB.setName(rS.getString("name"));
+        Timestamp timestamp = (rS.getTimestamp("created"));
+        itemFromDB.setCreated(timestamp.toLocalDateTime());
+        return itemFromDB;
     }
 
     @Override
@@ -116,11 +121,7 @@ public class SqlTracker implements Store {
             pS.execute();
             ResultSet rS = pS.getResultSet();
             while (rS.next()) {
-                Item itemFromDB = new Item();
-                itemFromDB.setId(rS.getInt("id"));
-                itemFromDB.setName(rS.getString("name"));
-                Timestamp timestamp = (rS.getTimestamp("created"));
-                itemFromDB.setCreated(timestamp.toLocalDateTime());
+                Item itemFromDB = getItem(rS);
                 items.add(itemFromDB);
             }
         } catch (Exception e) {
