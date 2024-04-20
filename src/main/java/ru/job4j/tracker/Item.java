@@ -46,7 +46,6 @@ public class Item {
         this.created = created;
     }
 
-
     @Override
     public String toString() {
         return "Item{"
@@ -72,6 +71,4 @@ public class Item {
     public int hashCode() {
         return Objects.hash(id, name);
     }
-
-
 }
