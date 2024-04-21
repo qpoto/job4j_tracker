@@ -3,7 +3,7 @@ package ru.job4j.tracker.action;
 import ru.job4j.tracker.Input;
 import ru.job4j.tracker.Store;
 
-public class Exit implements UserAction {
+public class ExitAction implements UserAction {
 
     @Override
     public String name() {

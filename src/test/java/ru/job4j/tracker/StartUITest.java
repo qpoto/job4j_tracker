@@ -16,8 +16,8 @@ public class StartUITest {
         Input in = new StubInput(new String[] {"0", "Item name", "1"});
         MemTracker tracker = new MemTracker();
         List<UserAction> actions = new ArrayList<>();
-        actions.add(new Create(out));
-        actions.add(new Exit());
+        actions.add(new CreateAction(out));
+        actions.add(new ExitAction());
         new StartUI(out).init(in, tracker, actions);
         assertThat(tracker.findAll().get(0).getName()).isEqualTo("Item name");
     }
@@ -31,7 +31,7 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[] {"0", String.valueOf(item.getId()), replacedName, "1"}
         );
-        List<UserAction> actions = List.of(new Edit(out), new Exit());
+        List<UserAction> actions = List.of(new ReplaceAction(out), new ExitAction());
         new StartUI(out).init(in, tracker, actions);
         assertThat(tracker.findById(item.getId()).getName()).isEqualTo(replacedName);
     }
@@ -44,7 +44,7 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[] {"0", String.valueOf(item.getId()), "1"}
         );
-        List<UserAction> actions = List.of(new Delete(out), new Exit());
+        List<UserAction> actions = List.of(new DeleteAction(out), new ExitAction());
         new StartUI(out).init(in, tracker, actions);
         assertThat(tracker.findById(item.getId())).isNull();
     }
@@ -57,7 +57,7 @@ public class StartUITest {
         );
         MemTracker tracker = new MemTracker();
         UserAction[] actions = {
-                new Exit()
+                new ExitAction()
         };
         new StartUI(out).init(in, tracker, List.of(actions));
         assertThat(out.toString()).isEqualTo(
@@ -76,8 +76,8 @@ public class StartUITest {
                 new String[] {"0", String.valueOf(one.getId()), replaceName, "1"}
         );
         List<UserAction> actions = List.of(
-                new Edit(out),
-                new Exit()
+                new ReplaceAction(out),
+                new ExitAction()
         );
         new StartUI(out).init(in, tracker, actions);
         String ln = System.lineSeparator();
@@ -102,8 +102,8 @@ public class StartUITest {
                 new String[] {"0", "1"}
         );
         UserAction[] actions = new UserAction[]{
-                new ShowAll(out),
-                new Exit()
+                new FindAllAction(out),
+                new ExitAction()
         };
         new StartUI(out).init(in, tracker, List.of(actions));
         String ln = System.lineSeparator();
@@ -128,8 +128,8 @@ public class StartUITest {
                 new String[] {"0", one.getName(), "1"}
         );
         UserAction[] actions = new UserAction[]{
-                new FindByName(out),
-                new Exit()
+                new FindByNameAction(out),
+                new ExitAction()
         };
         new StartUI(out).init(in, tracker, List.of(actions));
         String ln = System.lineSeparator();
@@ -153,7 +153,7 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[] {"0", String.valueOf(one.getId()), "1"}
         );
-        List<UserAction> actions = List.of(new FindById(out), new Exit());
+        List<UserAction> actions = List.of(new FindByIdAction(out), new ExitAction());
         new StartUI(out).init(in, tracker, actions);
         String ln = System.lineSeparator();
         assertThat(out.toString()).isEqualTo(
@@ -176,7 +176,7 @@ public class StartUITest {
         );
         MemTracker tracker = new MemTracker();
         UserAction[] actions = new UserAction[]{
-                new Exit()
+                new ExitAction()
         };
         new StartUI(out).init(in, tracker, List.of(actions));
         String ln = System.lineSeparator();
