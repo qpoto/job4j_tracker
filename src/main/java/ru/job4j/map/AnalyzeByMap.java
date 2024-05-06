@@ -34,7 +34,7 @@ public class AnalyzeByMap {
         for (Pupil pupil : pupils) {
             pupilQuantity++;
             for (Subject subject : pupil.subjects()) {
-                time.put(subject.name(), time.getOrDefault(subject.name(), 0) + subject.score());
+                time.merge(subject.name(), subject.score(), (oldValue, newValue) -> oldValue + subject.score());
             }
         }
         List<Label> averageScoreBySubject = new ArrayList<>();
@@ -62,7 +62,7 @@ public class AnalyzeByMap {
         Map<String, Integer> time = new LinkedHashMap<>();
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
-                time.put(subject.name(), time.getOrDefault(subject.name(), 0) + subject.score());
+                time.merge(subject.name(), subject.score(), (oldValue, newValue) -> oldValue + subject.score());
             }
         }
         List<Label> bestSubjectScore = new ArrayList<>();
